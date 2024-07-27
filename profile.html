@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuentos Mágicos - Perfil</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f4f8;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const ProfilePage = () => {
+            const [profile, setProfile] = React.useState({
+                name: 'Usuario Ejemplo',
+                email: 'usuario@ejemplo.com',
+                storiesGenerated: 5,
+                favGenre: 'Aventura'
+            });
+            const [medals, setMedals] = React.useState([]);
+
+            React.useEffect(() => {
+                const storedMedals = JSON.parse(localStorage.getItem('medals')) || [
+                    "Primer cuento leído",
+                    "5 cuentos generados",
+                    "Explorador de géneros"
+                ];
+                setMedals(storedMedals);
+            }, []);
+
+            return (
+                <div className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-100">
+                    <nav className="bg-white shadow-md">
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                            <div className="flex justify-between h-16">
+                                <div className="flex">
+                                    <div className="flex-shrink-0 flex items-center">
+                                        <img className="h-8 w-auto" src="https://via.placeholder.com/50" alt="Logo" />
+                                    </div>
+                                    <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+                                        <a href="index.html" className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Inicio</a>
+                                        <a href="profile.html" className="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Perfil</a>
+                                        <a href="characters.html" className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Personajes</a>
+                                        <a href="generator.html" className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Generar Cuento</a>
+                                        <a href="contact.html" className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Contacto</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+
+                    <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+                        <div className="px-4 py-6 sm:px-0">
+                            <h1 className="text-4xl font-bold text-gray-900 mb-6">Tu Perfil</h1>
+                            <div className="bg-white overflow-hidden shadow rounded-lg">
+                                <div className="px-4 py-5 sm:p-6">
+                                    <h2 className="text-2xl font-semibold text-gray-900 mb-4">Información Personal</h2>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <p className="text-sm font-medium text-gray-500">Nombre</p>
+                                            <p className="mt-1 text-lg text-gray-900">{profile.name}</p>
+                                        </div>
+                                        <div>
+                                            <p className="text-sm font-medium text-gray-500">Email</p>
+                                            <p className="mt-1 text-lg text-gray-900">{profile.email}</p>
+                                        </div>
+                                        <div>
+                                            <p className="text-sm font-medium text-gray-500">Cuentos Generados</p>
+                                            <p className="mt-1 text-lg text-gray-900">{profile.storiesGenerated}</p>
+                                        </div>
+                                        <div>
+                                            <p className="text-sm font-medium text-gray-500">Género Favorito</p>
+                                            <p className="mt-1 text-lg text-gray-900">{profile.favGenre}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="mt-6 bg-white overflow-hidden shadow rounded-lg">
+                                <div className="px-4 py-5 sm:p-6">
+                                    <h2 className="text-2xl font-semibold text-gray-900 mb-4">Tus Medallas</h2>
+                                    <ul className="space-y-2">
+                                        {medals.map((medal, index) => (
+                                            <li key={index} className="flex items-center">
+                                                <svg className="h-6 w-6 text-yellow-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
+                                                </svg>
+                                                {medal}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            );
+        };
+
+        ReactDOM.render(<ProfilePage />, document.getElementById('root'));
+    </script>
+</body>
+</html>
